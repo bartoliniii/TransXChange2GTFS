@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 - 2013 GoogleTransitDataFeed
+ * Copyright 2007 - 2016 GoogleTransitDataFeed
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -279,7 +279,7 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 	            		createBankHolidaysAll(service, holidays, _key_calendar_bankholiday_operation_all[4]);
 	            	else
 		           		if (key.equals(_key_calendar_bankholiday_operation_spring[0]) && keyNested.equals(_key_calendar_bankholiday_operation_spring[1]) && keyOperationDaysBank.equals(_key_calendar_bankholiday_operation_spring[2]))       
-		           			createBankHoliday(service, qName, holidays, _key_calendar_bankholiday_nooperation_all[4]);
+		           			createBankHoliday(service, qName, holidays, _key_calendar_bankholiday_operation_spring[4]);
 	        	}
         	}
         }    

@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 - 2013 GoogleTransitDataFeed
+ * Copyright 2007 - 2016 GoogleTransitDataFeed
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -50,8 +50,7 @@ public class TransxchangeHandler {
 	static List parseHandlers = null;
 	
 	String agencyOverride = null;
-	
-	
+
 	/*
 	 * Utility methods to set and get attribute values
 	 */
