@@ -20,30 +20,26 @@ import java.util.*;
 
 public class ValueList {
     private String keyName;
-    private List values;
+    private ArrayList<String> values;
 
     public void addValue(String addValue) {
-        StringBuffer val = new StringBuffer(addValue);
-        values.add(val);
+        values.add(addValue);
     }
 
     public String getValue(int i) {
         if (i < 0 || i >= values.size())
             return null;
-
-        return (String)(((StringBuffer)values.get(i)).toString());
+        return values.get(i);
     }
 
     public void setValue(int i, String value) {
     	if (i < 0 || i >= values.size())
     		  return;
-
-  	    StringBuffer val = new StringBuffer(value);
-  	    values.set(i, val);
+  	    values.set(i, value);
     }
 
     public void dumpValues() {
-        Iterator i = values.iterator();
+        Iterator<String> i = values.iterator();
         while (i.hasNext()) {
                 System.out.println(keyName + " " + i.next());
         }
@@ -56,9 +52,12 @@ public class ValueList {
     public int size() {
         return values.size();
     }
+    public void clear() {
+    	values.clear();
+    }
 
     public ValueList(String key) {
         keyName = key;
-        values = new ArrayList();
+        values = new ArrayList<String>();
     }
 }

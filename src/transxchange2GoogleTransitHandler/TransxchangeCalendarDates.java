@@ -62,15 +62,17 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 	static final String[] _key_calendar_no_dates_start = {"Service", "SpecialDaysOperation", "DaysOfNonOperation", "StartDate", "2"};
 	static final String[] _key_calendar_no_dates_end = {"Service", "SpecialDaysOperation", "DaysOfNonOperation", "EndDate", "2"};
 
-	// Bank holiday XML markups
-	static final String[] _key_calendar_bankholiday_operation_spring = {"Service", "BankHolidayOperation", "DaysOfOperation", "SpringHoliday", "1"};
-	static final String[] _key_calendar_bankholiday_nooperation_all = {"Service", "BankHolidayOperation", "DaysOfNonOperation", "AllBankHolidays", "2"};
+	// Bank and spring holiday XML markups
+	static final String[] _key_calendar_springholiday_operation = {"Service", "BankHolidayOperation", "DaysOfOperation", "SpringHoliday", "1"};
+	static final String[] _key_calendar_springholiday_nooperation = {"Service", "BankHolidayOperation", "DaysOfNonOperation", "SpringHoliday", "2"};
 	static final String[] _key_calendar_bankholiday_operation_all = {"Service", "BankHolidayOperation", "DaysOfOperation", "AllBankHolidays", "1"};
+	static final String[] _key_calendar_bankholiday_nooperation_all = {"Service", "BankHolidayOperation", "DaysOfNonOperation", "AllBankHolidays", "2"};
 	
 	// Parse keys
 	String keyOperationDays = "";
 	String keyOperationDaysStart = "";
 	String keyOperationDaysBank = ""; // key for bank holidays
+	String keyOperationDaysSpring = ""; // key for spring holidays
 	String keyOperationDaysType = "";
 
 	// Some support variables
@@ -128,6 +130,9 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 	    if (key.equals(_key_calendar_dates_start[0]) && qName.equals(_key_calendar_dates_start[1]) && keyOperationDays.length() == 0) {
 	    	keyNested = _key_calendar_dates_start[1];
 	    }
+	    if (key.equals(_key_calendar_dates_start[0]) && qName.equals(_key_calendar_dates_start[1]) && keyOperationDays.length() == 0) {
+	    	
+	    }
 	    if (key.equals(_key_calendar_dates_start[0]) && keyNested.equals(_key_calendar_dates_start[1]) && qName.equals(_key_calendar_dates_start[2])) {
 	    	keyOperationDays = _key_calendar_dates_start[2];
 	    }
@@ -160,20 +165,23 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 	    if (key.equals(_key_calendar_bankholiday_nooperation_all[0]) && keyNested.equals(_key_calendar_bankholiday_nooperation_all[1]) && qName.equals(_key_calendar_bankholiday_nooperation_all[2]))
 	    	keyOperationDaysBank = _key_calendar_bankholiday_nooperation_all[2];
 
-	    // Operation (Spring Holidays)
-	    if (key.equals(_key_calendar_bankholiday_operation_spring[0]) && keyNested.equals(_key_calendar_bankholiday_operation_spring[1]) && qName.equals(_key_calendar_bankholiday_operation_spring[2]))
-	    	keyOperationDaysBank = _key_calendar_bankholiday_operation_spring[2];
-	    else {
-		    // Operation (All Holidays)
-		    if (key.equals(_key_calendar_bankholiday_operation_all[0]) && qName.equals(_key_calendar_bankholiday_operation_all[1]))
-		    	keyNested = _key_calendar_bankholiday_operation_all[1];
-		    if (key.equals(_key_calendar_bankholiday_operation_all[0]) && keyNested.equals(_key_calendar_bankholiday_operation_all[1]) && qName.equals(_key_calendar_bankholiday_operation_all[2]))
-		    	keyOperationDaysBank = _key_calendar_bankholiday_operation_all[2];
-		    if (key.equals(_key_calendar_bankholiday_operation_all[0]) && keyNested.equals(_key_calendar_bankholiday_operation_all[1]) 
-		    		&& keyOperationDaysBank.equals(_key_calendar_bankholiday_operation_all[2])
-		    		&& qName.equals(_key_calendar_bankholiday_operation_all[3]))
-		    	keyOperationDaysType = _key_calendar_bankholiday_operation_all[3];
-	    }
+	    // Spring Holidays
+//	    if (key.equals(_key_calendar_springholiday_operation[0]) && keyNested.equals(_key_calendar_springholiday_operation[1]) && qName.equals(_key_calendar_springholiday_operation[2]))
+//	    	keyOperationDaysSpring = _key_calendar_springholiday_operation[2];
+//	    else {
+	    
+	    if (key.equals(_key_calendar_springholiday_operation[0]) && keyNested.equals(_key_calendar_springholiday_operation[1]) && qName.equals(_key_calendar_springholiday_nooperation[2]))
+	    	keyOperationDaysSpring = _key_calendar_springholiday_nooperation[2];
+
+	    // Operation (All Holidays)
+	    if (key.equals(_key_calendar_bankholiday_operation_all[0]) && qName.equals(_key_calendar_bankholiday_operation_all[1]))
+	    	keyNested = _key_calendar_bankholiday_operation_all[1];
+	    if (key.equals(_key_calendar_bankholiday_operation_all[0]) && keyNested.equals(_key_calendar_bankholiday_operation_all[1]) && qName.equals(_key_calendar_bankholiday_operation_all[2]))
+	    	keyOperationDaysBank = _key_calendar_bankholiday_operation_all[2];
+	    if (key.equals(_key_calendar_bankholiday_operation_all[0]) && keyNested.equals(_key_calendar_bankholiday_operation_all[1]) 
+	    	&& keyOperationDaysBank.equals(_key_calendar_bankholiday_operation_all[2])
+	    	&& qName.equals(_key_calendar_bankholiday_operation_all[3]))
+	    	keyOperationDaysType = _key_calendar_bankholiday_operation_all[3];
 	}
 	
    	@Override
@@ -278,11 +286,11 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 	        			&& keyOperationDaysType.equals(_key_calendar_bankholiday_operation_all[3]))       
 	            		createBankHolidaysAll(service, holidays, _key_calendar_bankholiday_operation_all[4]);
 	            	else
-		           		if (key.equals(_key_calendar_bankholiday_operation_spring[0]) && keyNested.equals(_key_calendar_bankholiday_operation_spring[1]) && keyOperationDaysBank.equals(_key_calendar_bankholiday_operation_spring[2]))       
-		           			createBankHoliday(service, qName, holidays, _key_calendar_bankholiday_operation_spring[4]);
+		           		if (key.equals(_key_calendar_springholiday_operation[0]) && keyNested.equals(_key_calendar_springholiday_operation[1]) && keyOperationDaysBank.equals(_key_calendar_springholiday_operation[2]))       
+		           			createSpringHoliday(service, qName, holidays, _key_calendar_springholiday_operation[4]);
 	        	}
         	}
-        }    
+        }
 	}
 
    	@Override
@@ -297,10 +305,10 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
    			keyOperationDaysBank = "";	
    			keyOperationDaysType= "";
 	    }
-	    if (key.equals(_key_calendar_bankholiday_operation_spring[0]) && keyNested.equals(_key_calendar_bankholiday_operation_spring[1]) && keyOperationDaysBank.equals(_key_calendar_bankholiday_operation_spring[2])) {
-   			keyOperationDaysBank = "";	
+	    if (key.equals(_key_calendar_springholiday_operation[0]) && keyNested.equals(_key_calendar_springholiday_operation[1]) && keyOperationDaysBank.equals(_key_calendar_springholiday_operation[2])) {
+   			keyOperationDaysSpring = "";	
    			keyOperationDaysType = "";
-	    } else
+	    } // else
 		    if (key.equals(_key_calendar_bankholiday_operation_all[0]) && keyNested.equals(_key_calendar_bankholiday_operation_all[1]) && keyOperationDaysBank.equals(_key_calendar_bankholiday_operation_all[2])) {
 	   			keyOperationDaysBank = "";	
 	   			keyOperationDaysType = "";
@@ -450,7 +458,7 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 		bankHolidays.put("SpringBank", TransxchangeDataAspect.formatDate(springBankHoliday.get(Calendar.YEAR), 
 			springBankHoliday.get(Calendar.MONTH) + 1, // Java starts counting months at 0
 			springBankHoliday.get(Calendar.DAY_OF_MONTH)));
-		
+
 		// LateSummerHolidayNotScotland : last Monday in August
 		Calendar lateSummerHoliday = Calendar.getInstance();
 		lateSummerHoliday.set(Calendar.YEAR, year);
@@ -552,7 +560,6 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 					newCalendarDates__date.addValue(TransxchangeDataAspect.formatDate(gcOperationDay.get(Calendar.YEAR), gcOperationDay.get(Calendar.MONTH) + 1, gcOperationDay.get(Calendar.DAY_OF_MONTH)));
 					newCalendarDates__exception_type = new ValueList(_key_calendar_no_dates_start[2]);
 					listCalendarDates__exception_type.add(newCalendarDates__exception_type);
-//					newCalendarDates__exception_type.addValue(_key_calendar_no_dates_start[4]);
 					newCalendarDates__exception_type.addValue(exceptionType);
 					gcOperationDay.add(Calendar.DAY_OF_YEAR, 1);
 					calendarDatesOperationDay = gcOperationDay.getTime();
@@ -579,9 +586,9 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 	/*
 	 * Create all bank holidays
 	 */
-	private void createBankHolidaysAll(String bankService, Map bankHolidayMap, String exceptionType) {        		
+	private void createBankHolidaysAll(String bankService, Map holidayMap, String exceptionType) {        		
 		
-		Iterator iter = bankHolidayMap.entrySet().iterator();
+		Iterator iter = holidayMap.entrySet().iterator();
 		
 		while (iter.hasNext()) {
 			Map.Entry e = (Map.Entry)iter.next();
@@ -600,16 +607,16 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 	/*
 	 * Create a particular bank holiday
 	 */
-	private void createBankHoliday(String bankService, String holiday, Map bankHolidayMap, String exceptionType) {        		
+	private void createSpringHoliday(String bankService, String holiday, Map holidayMap, String exceptionType) {        		
 
-		newCalendarDates__service_id = new ValueList(_key_calendar_bankholiday_operation_spring[0]);
+		newCalendarDates__service_id = new ValueList(_key_calendar_springholiday_operation[0]);
 		listCalendarDates__service_id.add(newCalendarDates__service_id);
 		newCalendarDates__service_id.addValue(bankService);
-		newCalendarDates__date = new ValueList(_key_calendar_bankholiday_operation_spring[2]);
+		newCalendarDates__date = new ValueList(_key_calendar_springholiday_operation[2]);
 		listCalendarDates__date.add(newCalendarDates__date);
-		newCalendarDates__date.addValue((String)bankHolidayMap.get(holiday));
-		newCalendarDates__exception_type = new ValueList(_key_calendar_bankholiday_operation_spring[2]);
+		newCalendarDates__date.addValue((String)holidayMap.get(holiday));
+		newCalendarDates__exception_type = new ValueList(_key_calendar_springholiday_operation[2]);
 		listCalendarDates__exception_type.add(newCalendarDates__exception_type);
-		newCalendarDates__exception_type.addValue(_key_calendar_bankholiday_operation_spring[4]);
+		newCalendarDates__exception_type.addValue(_key_calendar_springholiday_operation[4]);
 	}
 }

@@ -1,6 +1,6 @@
 GoogleTransitDataFeed transxchange2GoogleTransit
 
-Copyright 2007 - 2013 GoogleTransitDataFeed
+Copyright 2007 - 2016 GoogleTransitDataFeed
 
 This product includes software developed by:
 The Apache Software Foundation (http://www.apache.org/)
@@ -8,6 +8,12 @@ The Apache Software Foundation (http://www.apache.org/)
 
 
 RELEASE NOTES
+
+--------------------------------------------------------------
+v1.8.1:
+
+*** 
+
 
 --------------------------------------------------------------
 v1.8:
